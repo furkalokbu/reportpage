@@ -1,3 +1,4 @@
+{% load render_bundle from webpack_loader %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
     <title>REPORT PAGE!</title>
 </head>
 <body>
-    <h1>VUE JS!</h1>
     <div id="app"></div>
+    {% render_bundle 'app' %}
 </body>
 </html>

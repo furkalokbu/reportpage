@@ -1,8 +1,11 @@
+from io import RawIOBase
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from speed.api.serializers import UserDateSerializer
 from speed.models import UserData
 from speed.api.permissions import IsOwnerData
+
+
 
 class UserDataViewSet(viewsets.ModelViewSet):
 
@@ -17,3 +20,7 @@ class UserDataViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+    # def list(self, request, *args, **kwargs):
+    #     response = super().list(request, *args, **kwargs)
+    #     print(response.data)
+        
