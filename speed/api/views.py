@@ -14,9 +14,11 @@ class UserDataViewSet(viewsets.ModelViewSet):
     serializer_class = UserDateSerializer
     permission_classes = [IsAuthenticated, IsOwnerData]
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
     def get_queryset(self):
         return UserData.objects.filter(user=self.request.user)
 
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+
 

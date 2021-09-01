@@ -5,13 +5,14 @@ from django.conf import settings
 
 class UserData(models.Model):
 
-    date = models.DateField()
+    date = models.CharField(_("date"), max_length=30)
     distance = models.FloatField(_("distance"))
     duration = models.FloatField(_("duration"))
     slug = models.SlugField(max_length=255, unique=True, null=True, blank=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                             on_delete=CASCADE,
-                            related_name="user"
+                            related_name="user",
+                             null=True, blank=True
                             )
 
     created_at = models.DateTimeField(_("created at"), auto_now_add=True)
@@ -19,3 +20,14 @@ class UserData(models.Model):
 
     def __str__(self):
         return self.slug
+
+class SpeedUserData(models.Model):
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                            on_delete=CASCADE,
+                            related_name="speed",
+                                null=True, blank=True
+                            )
+    average_speed = models.FloatField(_("average_speed"))
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("updated at"), auto_now=True)

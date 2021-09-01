@@ -3,7 +3,7 @@ class AverageSpeed():
 
     """Return the speed for normal data 
     >>> res = AverageSpeed()
-    >>> values = [[3.0,10],[6.0,2],[10.0,10]]
+    >>> values = [(3.0,10),(6.0,2),(10.0,10)]
     >>> res.speed(values)
     [0.3, 3.0, 1.0]
 
@@ -39,6 +39,10 @@ class AverageSpeed():
 
 
 
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+# if __name__ == "__main__":
+#     import doctest
+#     # doctest.testmod()
+
+test = AverageSpeed()
+values = [(34.0, 23.0), (45.0, 34.0)]
+print(test.speed(values))

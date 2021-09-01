@@ -8,11 +8,3 @@ class UserDateSerializer(serializers.ModelSerializer):
         model = UserData
         exclude = ["slug", "updated_at"]
 
-    def get_average_speed(self,instance):
-        request = self.context.get("request")
-        return instance.userdata.filter(user=request.user).exists()
-        
-    def get(self, request):
-        return Response(
-            { "average_speed": 10}
-        )
