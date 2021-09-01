@@ -7,3 +7,4 @@ fabfile.pyc
 .vscode
 /frontend/node_modules/
 .env
+frontend/webpack-stats.json
