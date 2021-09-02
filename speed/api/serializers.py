@@ -22,8 +22,8 @@ class UserDateSerializer(serializers.ModelSerializer):
 
 
 class ReportUserSerializer(serializers.ModelSerializer):
-
+    
     class Meta:
         model = UserData
-        fields = ['distance', 'duration']
+        fields = ['date', 'distance', 'duration']
 

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import manager
 from django.db.models.deletion import CASCADE
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
@@ -41,3 +42,15 @@ class SpeedUserData(models.Model):
     
     def __str__(self):
         return str(self.user)
+
+class ReportDate(models.Model):
+    id = models.BigIntegerField(primary_key=True)
+    weekly = models.DateTimeField()
+    sum_distanse = models.DecimalField(max_digits=10, decimal_places=2)
+    sum_duration = models.DecimalField(max_digits=10, decimal_places=2)
+    average_speed = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        managed = False
+        db_table = 'group_data_by_week'
+

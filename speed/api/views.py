@@ -4,8 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from speed.api.serializers import UserDateSerializer, ReportUserSerializer
 from speed.models import UserData
 from speed.api.permissions import IsOwnerData
-from django.db.models.functions import Cast, TruncDay, TruncMonth, TruncWeek, TruncYear, TruncDate
-from django.db.models import DateField, Avg, Sum, DateTimeField
+from django.db.models.functions import Cast, TruncDay, TruncMonth, TruncWeek, TruncYear, TruncDate, Extract
+from django.db.models import  Avg, Sum, DateField
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -27,9 +27,9 @@ class UserDataViewSet(viewsets.ModelViewSet):
 
 class ReportUserViewSet(viewsets.ModelViewSet):
 
-    queryset = UserData.objects.all()
     serializer_class = ReportUserSerializer
-    permission_classes = [IsAuthenticated, IsOwnerData]
+    queryset = UserData.objects.all()   
+    http_method_names = ['get', 'post', 'head']
 
     GROUP_CASTING_MAP = { 
         'day': Cast(TruncDay('date'), output_field=DateField()),
@@ -40,7 +40,7 @@ class ReportUserViewSet(viewsets.ModelViewSet):
     
     GROUP_ANNOTATIONS_MAP = {  # Defines the fields used for grouping
         'day': {
-            'day': TruncDate('date'),
+            'day': TruncDay('date'),
             'month': TruncMonth('date'),
             'year': TruncYear('date'),
         },
@@ -60,6 +60,7 @@ class ReportUserViewSet(viewsets.ModelViewSet):
         return UserData.objects.filter(user=self.request.user)
 
     def list(self, request, *args, **kwargs):
+        
         group_by_field = request.GET.get('group_by', None)
         if group_by_field and group_by_field not in self.GROUP_CASTING_MAP.keys():
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -68,11 +69,13 @@ class ReportUserViewSet(viewsets.ModelViewSet):
 
         if group_by_field:
             
-             queryset = queryset.annotate(**self.GROUP_ANNOTATIONS_MAP[group_by_field]) \
+            queryset = queryset.annotate(**self.GROUP_ANNOTATIONS_MAP[group_by_field]) \
                 .values(*self.GROUP_ANNOTATIONS_MAP[group_by_field]) \
                 .annotate(distance=Sum('distance'), duration=Sum('duration'), date=self.GROUP_CASTING_MAP[group_by_field]) \
-                .values('date','distance','duration',)
-
+                .values('duration', 'distance','date')
+            
+            print(queryset)
+        
         page = self.paginate_queryset(queryset)
         
         if page is not None:

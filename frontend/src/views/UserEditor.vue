@@ -8,7 +8,7 @@
                     v-model="editor_date"
                     type="date" 
                     class="form-control"
-                    placeholder="Date">
+                    placeholder="DateTime">
                 </div>
                 <div class="col">
                 <input
