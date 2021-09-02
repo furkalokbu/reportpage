@@ -2,7 +2,7 @@ from django.db.models import fields
 from rest_framework import serializers
 from speed.models import UserData
 from rest_framework.response import Response
-from speed.models import SpeedUserData
+from speed.models import SpeedUserData, ReportDate
 
 class UserDateSerializer(serializers.ModelSerializer):
 
@@ -24,6 +24,6 @@ class UserDateSerializer(serializers.ModelSerializer):
 class ReportUserSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = UserData
-        fields = ['date', 'distance', 'duration']
+        model = ReportDate
+        fields = ['sum_dist','sum_dur', 'avg']
 

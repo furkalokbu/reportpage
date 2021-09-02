@@ -2,7 +2,7 @@ from io import RawIOBase
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from speed.api.serializers import UserDateSerializer, ReportUserSerializer
-from speed.models import UserData
+from speed.models import UserData, ReportDate
 from speed.api.permissions import IsOwnerData
 from django.db.models.functions import Cast, TruncDay, TruncMonth, TruncWeek, TruncYear, TruncDate, Extract
 from django.db.models import  Avg, Sum, DateField
@@ -24,6 +24,17 @@ class UserDataViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return UserData.objects.filter(user=self.request.user)
 
+
+class ReportDataViewSet(viewsets.ModelViewSet):
+
+    queryset = ReportDate.objects.all()
+    serializer_class = ReportUserSerializer
+    permission_classes = [IsAuthenticated, IsOwnerData]
+
+
+
+# V2 create report list for days, week, month and year
+# not used now
 
 class ReportUserViewSet(viewsets.ModelViewSet):
 

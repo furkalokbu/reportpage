@@ -44,13 +44,15 @@ class SpeedUserData(models.Model):
         return str(self.user)
 
 class ReportDate(models.Model):
-    id = models.BigIntegerField(primary_key=True)
-    weekly = models.DateTimeField()
-    sum_distanse = models.DecimalField(max_digits=10, decimal_places=2)
-    sum_duration = models.DecimalField(max_digits=10, decimal_places=2)
-    average_speed = models.DecimalField(max_digits=10, decimal_places=2)
+
+    weekly = models.AutoField(primary_key=True)
+    sum_dist = models.DecimalField(max_digits=10, decimal_places=2)
+    sum_dur = models.DecimalField(max_digits=10, decimal_places=2)
+    avg = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         managed = False
         db_table = 'group_data_by_week'
 
+
+    
