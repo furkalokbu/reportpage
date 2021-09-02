@@ -23,5 +23,10 @@ def add_slug_to_user_data(sender, instance, *args, **kwargs):
             data_list.append(item)
         
         tools = AverageSpeed()
-        print(data_list)
-        print(tools.speed(data_list))
+        valus_speed = tools.speed(data_list)
+        aver_speed = tools.average_speed(valus_speed)
+        user = SpeedUserData.objects.filter(user=instance.user).first()
+        if user:
+            SpeedUserData.objects.update(user=instance.user,average_speed=aver_speed)
+        else: 
+            SpeedUserData.objects.create(user=instance.user,average_speed=aver_speed)

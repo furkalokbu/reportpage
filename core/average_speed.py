@@ -39,10 +39,8 @@ class AverageSpeed():
 
 
 
-# if __name__ == "__main__":
-#     import doctest
-#     # doctest.testmod()
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
 
-test = AverageSpeed()
-values = [(34.0, 23.0), (45.0, 34.0)]
-print(test.speed(values))
+

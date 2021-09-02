@@ -7,6 +7,7 @@ from speed.api import views as sv
 
 router = DefaultRouter()
 router.register(r"speed", sv.UserDataViewSet)
+router.register(r"report", sv.ReportUserViewSet)
 
 urlpatterns = [
     path("", include(router.urls))
