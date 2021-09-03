@@ -31,7 +31,8 @@ class ReportDataViewSet(viewsets.ModelViewSet):
     serializer_class = ReportUserSerializer
     permission_classes = [IsAuthenticated, IsOwnerData]
 
-
+    def get_queryset(self):
+        return ReportDate.objects.filter(username=self.request.user)
 
 # V2 create report list for days, week, month and year
 # not used now

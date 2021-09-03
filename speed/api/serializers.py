@@ -25,5 +25,4 @@ class ReportUserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = ReportDate
-        fields = ['sum_dist','sum_dur', 'avg']
-
+        fields = ['username','sum_dist','sum_dur', 'avg']

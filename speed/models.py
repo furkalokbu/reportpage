@@ -3,6 +3,7 @@ from django.db.models import manager
 from django.db.models.deletion import CASCADE
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from users.models import CustomUser
 
 class UserData(models.Model):
 
@@ -45,6 +46,7 @@ class SpeedUserData(models.Model):
 
 class ReportDate(models.Model):
 
+    username = models.CharField(max_length=100)
     weekly = models.AutoField(primary_key=True)
     sum_dist = models.DecimalField(max_digits=10, decimal_places=2)
     sum_dur = models.DecimalField(max_digits=10, decimal_places=2)
@@ -52,7 +54,7 @@ class ReportDate(models.Model):
 
     class Meta:
         managed = False
-        db_table = 'group_data_by_week'
+        db_table = 'group_data_by_week_user'
 
 
     
